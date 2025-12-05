@@ -2,7 +2,6 @@ pipeline {
     agent {
 		docker {
 			image "ruby:3.4.7"
-			label "my_ruby"
 		}
 	}
 
