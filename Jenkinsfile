@@ -21,7 +21,7 @@ pipeline {
 				message "Voulez-vous mettre en prod ?"
 				ok "Déployer"
 				submitter "admin,devops"
-				submitParameter "USER_SUBMIT"
+				submitterParameter "USER_SUBMIT"
 				parameters {
 					string(name: "VERSION", defaultValue: "latest", description: "La version")
 					booleanParam(name: "SUPER", defaultValue: true, description: "Super ?")
