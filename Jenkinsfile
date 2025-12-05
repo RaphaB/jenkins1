@@ -5,10 +5,6 @@ pipeline {
 		}
 	}
 
-	triggers {
-		pollSCM("* * * * *")
-	}
-
 	options {
 		timestamps()
 	}
@@ -19,15 +15,25 @@ pipeline {
 				sh "ruby --version"
             }
         }
-	}
 
-	post {
-		always {
-			echo "Always !"
-		}
+		stage("deployment") {
+			input {
+				message "Voulez-vous mettre en prod ?"
+				ok "Déployer"
+				submitter "admin,devops"
+				submitParameter "USER_SUBMIT"
+				parameters {
+					string(name: "VERSION", defaultValue: "latest", description: "La version")
+					booleanParam(name: "SUPER", defaultValue: true, description: "Super ?")
+				}
+			}
 
-		success {
-			echo "Success !"
+			steps {
+				echo "user: ${USER_SUBMIT}"
+				echo "version: ${VERSION}"
+				echo "super: ${SUPER}"
+				echo "Deploying !"
+			}
 		}
 	}
 }
